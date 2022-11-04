@@ -1,0 +1,5 @@
+.scroll-container-wrapper {
+  height: 80%;
+  overflow-y: scroll;
+  width: 80%;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      let docElement = document.documentElement
+      function setRemUnit() {
+        // docElement.style.fontSize = docElement.clientWidth / 10 + 'px'
+        let width = document.documentElement.clientWidth || document.body.clientWidth
+        let fontsize = (width <= 1200 ? 1200 : width) / 100 + 'px'
+        document.getElementsByTagName('html')[0].style['font-size'] = fontsize
+        console.log('resize event','height:', window.innerHeight , 'width:', window.innerWidth)
+      }
+      setRemUnit()
+      // document 监听resize 是错误的,  窗口改变的时候不会触发
+      // document.addEventListener('resize', setRemUnit)
+      window.addEventListener('resize', setRemUnit)
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
