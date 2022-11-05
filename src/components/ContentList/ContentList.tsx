@@ -1,5 +1,5 @@
 import React, { RefObject, useReducer } from 'react'
-import { Skeleton } from 'antd'
+// import { Skeleton } from 'antd'
 import mockData, { ItemType } from './mockData'
 import { ContentListSkeleton } from './ContentListSkeleton'
 
@@ -37,12 +37,12 @@ const ContentList = ({ containerRef }: IProps, ref: any) => {
   const [_, updateList] = useReducer(x => x + 1, 0)
 
   let dataVisible: VisibleItemType[] = []
-  let itemHeight = 120
+  const itemHeight = 120
   let start = 0
   let end = 0
   const totalSize = mockData.length
 
-  let scrollScreenHeight = containerRef.current?.clientHeight as number
+  const scrollScreenHeight = containerRef.current?.clientHeight as number
 
   if (containerRef.current) {
     const containerDOM = containerRef.current
@@ -78,7 +78,7 @@ const ContentList = ({ containerRef }: IProps, ref: any) => {
   return (
     <>
       {dataVisible.length > 0 ? (
-        <div className="flex flex-col gap-1 relative bg-green-300" style={{ height: itemHeight * totalSize + 'px' }}>
+        <div className="flex flex-col gap-1 relative " style={{ height: itemHeight * totalSize + 'px' }}>
           {/* <Skeleton active paragraph={{ rows: 40 }} loading={dataVisible.length < 1}> */}
           {dataVisible.map(data => {
             return (
