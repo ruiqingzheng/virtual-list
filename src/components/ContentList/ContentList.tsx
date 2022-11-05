@@ -78,7 +78,7 @@ const ContentList = ({ containerRef }: IProps, ref: any) => {
   return (
     <>
       {dataVisible.length > 0 ? (
-        <div className="flex flex-col gap-1 relative bg-green-300" style={{ height: itemHeight * totalSize + 'px' }}>
+        <div className="flex flex-col gap-1 relative " style={{ height: itemHeight * totalSize + 'px' }}>
           {/* <Skeleton active paragraph={{ rows: 40 }} loading={dataVisible.length < 1}> */}
           {dataVisible.map(data => {
             return (
