@@ -5,7 +5,7 @@ export interface ItemType {
 }
 const data: Array<ItemType> = []
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 5000; i++) {
   data.push({
     id: uuid(),
     title: `test items ${Math.random()}`,

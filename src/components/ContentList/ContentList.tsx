@@ -1,10 +1,15 @@
-import React, { PropsWithChildren, RefObject, useEffect, useReducer } from 'react'
+import React, { RefObject, useReducer } from 'react'
+import { Skeleton } from 'antd'
 import mockData, { ItemType } from './mockData'
+import { ContentListSkeleton } from './ContentListSkeleton'
 
-const ListItem = ({ data, style }: { data: ItemType; style: React.CSSProperties }) => {
+const ListItem = ({ data, style, className }: { data: ItemType; style?: React.CSSProperties; className?: string }) => {
   return (
     <>
-      <div style={{ ...style }} className="w-full p-5 bg-green-300 hover:bg-green-200">
+      <div
+        style={{ ...style }}
+        className={`${className} w-full p-5 bg-green-300 hover:bg-green-200 flex flex-col justify-center items-start gap-3`}
+      >
         <p>{data.id}</p>
         <span className="text-lg">{data.title}</span>
       </div>
@@ -43,14 +48,14 @@ const ContentList = ({ containerRef }: IProps, ref: any) => {
     const containerDOM = containerRef.current
     start = Math.floor(containerDOM.scrollTop / itemHeight)
     end = Math.ceil(start + scrollScreenHeight / itemHeight)
-    start -= 2
-    end += 2
+    start -= 5
+    end += 5
     if (start < 0) start = 0
     if (end > mockData.length) end = totalSize
   }
   const baseStyle: React.CSSProperties = { position: 'absolute', height: itemHeight + 'px' }
   const containerDOM = containerRef.current
-  dataVisible = mockData.map((item, index ) => ({...item, index})).slice(start, end)
+  dataVisible = mockData.map((item, index) => ({ ...item, index })).slice(start, end)
   // bug
   // mockData.slice(start, end).map((item, index) => ({ ...item, index }))
   // debugger
@@ -71,13 +76,25 @@ const ContentList = ({ containerRef }: IProps, ref: any) => {
   ref.current = updateList
 
   return (
-    <div className="flex flex-col gap-1 relative" style={{ height: itemHeight * totalSize + 'px' }}>
-      {dataVisible.map(data => {
-        return (
-          <ListItem data={data} key={data.id} style={{ ...baseStyle, top: data.index * itemHeight + 'px' }}></ListItem>
-        )
-      })}
-    </div>
+    <>
+      {dataVisible.length > 0 ? (
+        <div className="flex flex-col gap-1 relative bg-green-300" style={{ height: itemHeight * totalSize + 'px' }}>
+          {/* <Skeleton active paragraph={{ rows: 40 }} loading={dataVisible.length < 1}> */}
+          {dataVisible.map(data => {
+            return (
+              <ListItem
+                data={data}
+                key={data.id}
+                style={{ ...baseStyle, top: data.index * itemHeight + 'px' }}
+              ></ListItem>
+            )
+          })}
+          {/* </Skeleton> */}
+        </div>
+      ) : (
+        <ContentListSkeleton />
+      )}
+    </>
   )
 }
 
